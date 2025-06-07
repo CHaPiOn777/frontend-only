@@ -1,0 +1,2 @@
+# frontend-only
+gsap
