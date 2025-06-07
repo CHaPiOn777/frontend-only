@@ -1,3 +1,4 @@
+// src/components/Text/Text.tsx
 import React from "react";
 import styled from "styled-components";
 
@@ -33,7 +34,7 @@ type CustomTextComponent = <T extends React.ElementType = "div">(
   props: TextProps<T> & { ref?: React.Ref<any> }
 ) => React.ReactElement | null;
 
-const CustomText = React.forwardRef(
+const CustomTextBase = React.forwardRef(
   <T extends React.ElementType = "div">(
     {
       as,
@@ -43,13 +44,13 @@ const CustomText = React.forwardRef(
       ...rest
     }: TextProps<T>,
     ref?: React.Ref<any>
-  ) => {
-    return (
-      <StyledText as={as} variant={variant} color={color} ref={ref} {...rest}>
-        {children}
-      </StyledText>
-    );
-  }
+  ) => (
+    <StyledText as={as} variant={variant} color={color} ref={ref} {...rest}>
+      {children}
+    </StyledText>
+  )
 ) as CustomTextComponent;
+
+const CustomText = React.memo(CustomTextBase) as CustomTextComponent;
 
 export default CustomText;

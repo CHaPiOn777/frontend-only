@@ -12,6 +12,7 @@ import CustomText from "@/assets/text/Text";
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import gsap from "gsap";
+import { mocData } from "@/shared/lib/mocData";
 
 const offsetDeg = -60;
 const radius = 265;
@@ -28,23 +29,10 @@ const StBox = styled.div`
   transform: translate(-50%, -100%);
 `;
 
-const data = [
-  { id: 1, startDate: 1980, endDate: 1985 },
-  { id: 2, startDate: 1986, endDate: 1990 },
-  { id: 3, startDate: 1991, endDate: 1995 },
-  { id: 4, startDate: 1996, endDate: 2000 },
-  { id: 5, startDate: 2001, endDate: 2005 },
-  { id: 6, startDate: 2006, endDate: 2010 },
-];
-
 const CircleContent = ({
   containerRef,
-  activePin,
-  setActivePin,
 }: {
   containerRef: React.RefObject<HTMLDivElement | null>;
-  activePin: number;
-  setActivePin: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const circleRef = useRef<any>(null);
   const { width, height } = useContainerSize(containerRef);
@@ -52,34 +40,32 @@ const CircleContent = ({
   const centerY = height * 0.45;
   const elStart = useRef<HTMLSpanElement>(null);
   const elEnd = useRef<HTMLSpanElement>(null);
+  const [activePin, setActivePin] = useState<number>(1);
 
   const activeValue = useMemo(
-    () => data.filter(({ id }) => id === activePin)[0],
+    () => mocData.filter(({ id }) => id === activePin)[0],
     [activePin]
   );
   const prevStart = useRef(activeValue.startDate);
   const prevEnd = useRef(activeValue.endDate);
 
-  const animatedDates = useCallback(
-    (
-      value: React.RefObject<number>,
-      newDate: number,
-      ref: React.RefObject<HTMLSpanElement | null>
-    ) => {
-      const obj = { val: value.current };
-      gsap.to(obj, {
-        val: newDate,
-        duration: 0.6,
-        ease: "power1.out",
-        snap: { val: 1 },
-        onUpdate: () => {
-          if (ref.current) ref.current.textContent = String(obj.val);
-        },
-      });
-      value.current = newDate;
-    },
-    [activeValue]
-  );
+  const animatedDates = (
+    value: React.RefObject<number>,
+    newDate: number,
+    ref: React.RefObject<HTMLSpanElement | null>
+  ) => {
+    const obj = { val: value.current };
+    gsap.to(obj, {
+      val: newDate,
+      duration: 0.6,
+      ease: "power1.out",
+      snap: { val: 1 },
+      onUpdate: () => {
+        if (ref.current) ref.current.textContent = String(obj.val);
+      },
+    });
+    value.current = newDate;
+  };
 
   useEffect(() => {
     animatedDates(prevStart, activeValue.startDate, elStart);

@@ -1,17 +1,5 @@
-import React, {
-  useRef,
-  useLayoutEffect,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { LeftArrow, RightArrow } from "@/assets/icons";
-import Content from "@/components/Content/Content";
+import { useRef, useLayoutEffect, useState } from "react";
 import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
-import TimelineDot from "@/components/Content/TimelineDot/TimelineDot";
-import { useContainerSize } from "@/shared/hooks/useContainerSize";
 import CircleContent from "@/components/Content/CircleContent/CircleContent";
 import CustomText from "@/assets/text/Text";
 
@@ -42,9 +30,8 @@ const StBox = styled.div`
 
 const Main = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activePin, setActivePin] = useState<number>(1);
   const [ready, setReady] = useState(false);
-
+  console.count();
   useLayoutEffect(() => {
     if (containerRef.current) {
       setReady(true);
@@ -57,13 +44,7 @@ const Main = () => {
         <CustomText style={{ width: "353px" }} variant="display56" as="h1">
           Исторические даты
         </CustomText>
-        {ready && (
-          <CircleContent
-            setActivePin={setActivePin}
-            activePin={activePin}
-            containerRef={containerRef}
-          />
-        )}
+        {ready && <CircleContent containerRef={containerRef} />}
       </StBox>
       {/* <LeftArrow isLeft onClick={() => console.log("Назад")} />
       <RightArrow onClick={() => console.log("вперед")} /> */}
