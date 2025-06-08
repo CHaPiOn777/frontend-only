@@ -6,4 +6,7 @@ export type BigArrowIconProps = {
   isLeft?: boolean;
   className?: string;
   disabled?: boolean;
+  fill?: string;
+  isShadow?: boolean;
+  style?: React.CSSProperties;
 };

@@ -10,16 +10,21 @@ const BigArrow: React.FC<BigArrowIconProps> = ({
   onClick,
   isLeft = false,
   className,
+  style,
+  fill = "transparent",
   disabled = false,
+  isShadow = false,
 }) => (
   <StyledSvg
+    $isShadow={isShadow}
     width={width}
     height={height}
     viewBox="0 0 50 50"
+    $fill={fill}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
-    style={{ cursor: onClick ? "pointer" : "default" }}
+    style={{ cursor: onClick ? "pointer" : "default", ...style }}
     className={className}
     $isLeft={isLeft}
     $disabled={disabled}
@@ -31,7 +36,6 @@ const BigArrow: React.FC<BigArrowIconProps> = ({
       transform="matrix(-1 0 0 1 50 0)"
       stroke={color}
       strokeOpacity="0.5"
-      //   fill="red"
     />
     <path
       d="M27.4999 18.75L21.2499 25L27.4999 31.25"
