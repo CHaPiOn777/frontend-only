@@ -15,7 +15,11 @@ module.exports = {
     },
     extensions: [".tsx", ".ts", ".js"],
   },
-
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
   devServer: {
     static: "./dist",
     port: 3000,
@@ -36,9 +40,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
 };
