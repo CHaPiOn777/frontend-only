@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
     clean: true,
-    publicPath: "./",
+    publicPath: "/",
   },
   resolve: {
     alias: {
@@ -17,14 +17,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: path.resolve(__dirname, "public", "index.html"),
+      filename: "index.html",
     }),
   ],
   devServer: {
-    static: "./dist",
+    static: { directory: path.resolve(__dirname, "public") },
     port: 3000,
     hot: true,
     open: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -39,5 +41,9 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
     ],
+  },
+  stats: {
+    children: true, // показывать логи дочерних сборок
+    errorDetails: true, // подробности ошибок
   },
 };
