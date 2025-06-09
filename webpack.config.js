@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "main.[contenthash].js",
     clean: true,
-    publicPath: "/", // важно: все ассеты от корня
+    publicPath: "/",
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, "src") },
@@ -43,25 +43,17 @@ module.exports = {
       template: path.resolve(__dirname, "public", "index.html"),
       inject: "body",
     }),
-    // Копируем из public всё, кроме index.html
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, "public"),
-          filter: async (resourcePath) => !resourcePath.endsWith("index.html"),
-          to: path.resolve(__dirname, "dist"),
-        },
-      ],
-    }),
   ],
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, "dist"), // теперь сервим свою сборку
-    },
+    static: [
+      {
+        directory: path.resolve(__dirname, "public"), // отдаём favicon, картинки и т.д.
+      },
+    ],
     port: 3000,
     hot: true,
     open: true,
-    historyApiFallback: true, // SPA: все маршруты на index.html
+    historyApiFallback: true, // SPA-фоллбек
   },
   stats: {
     children: true,
