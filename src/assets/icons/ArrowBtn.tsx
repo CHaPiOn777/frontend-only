@@ -1,9 +1,9 @@
 import React from "react";
-import { BigArrowIconProps } from "./types";
 import { StyledSvg } from "./Icon.syles";
 import { theme } from "@/styles/theme";
+import { ArrowBtnIconProps } from "./types";
 
-const BigArrow: React.FC<BigArrowIconProps> = ({
+const ArrowBtn: React.FC<ArrowBtnIconProps> = ({
   width = 50,
   height = 50,
   color = theme.colors.primary,
@@ -14,6 +14,7 @@ const BigArrow: React.FC<BigArrowIconProps> = ({
   fill = "transparent",
   disabled = false,
   isShadow = false,
+  isBorder = true,
 }) => (
   <StyledSvg
     $isShadow={isShadow}
@@ -34,7 +35,7 @@ const BigArrow: React.FC<BigArrowIconProps> = ({
       cy="25"
       r="24.5"
       transform="matrix(-1 0 0 1 50 0)"
-      stroke={color}
+      stroke={isBorder ? `${theme.colors.primary50}` : "transparent"}
       strokeOpacity="0.5"
     />
     <path
@@ -45,4 +46,4 @@ const BigArrow: React.FC<BigArrowIconProps> = ({
   </StyledSvg>
 );
 
-export default BigArrow;
+export default ArrowBtn;

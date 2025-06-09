@@ -22,8 +22,10 @@ export const StyledSvg = styled.svg<{
   ${({ $disabled }) =>
     !$disabled &&
     `
-    &:hover circle {
-      fill: #fff;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover circle {
+        fill: #fff;
+      }
     }
-    `};
+  `}
 `;

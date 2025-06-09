@@ -1,4 +1,4 @@
-export type BigArrowIconProps = {
+export type ArrowBtnIconProps = {
   width?: number | string;
   height?: number | string;
   color?: string;
@@ -9,4 +9,5 @@ export type BigArrowIconProps = {
   fill?: string;
   isShadow?: boolean;
   style?: React.CSSProperties;
+  isBorder?: boolean;
 };

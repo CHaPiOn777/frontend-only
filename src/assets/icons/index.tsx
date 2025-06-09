@@ -1,13 +1,11 @@
 import React from "react";
-import BigArrow from "./BigArrow";
-import { BigArrowIconProps } from "./types";
+import { ArrowBtnIconProps } from "./types";
+import ArrowBtn from "./ArrowBtn";
 
-// Правый (по умолчанию)
-export const RightArrow: React.FC<BigArrowIconProps> = (props) => (
-  <BigArrow {...props} />
+export const RightArrow: React.FC<ArrowBtnIconProps> = (props) => (
+  <ArrowBtn {...props} />
 );
 
-// Левый (развернутый)
-export const LeftArrow: React.FC<BigArrowIconProps> = (props) => (
-  <BigArrow {...props} isLeft />
+export const LeftArrow: React.FC<ArrowBtnIconProps> = (props) => (
+  <ArrowBtn {...props} isLeft />
 );

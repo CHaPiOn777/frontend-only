@@ -1,11 +1,4 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import { useContainerSize } from "@/shared/hooks/useContainerSize";
 import { styled } from "styled-components";
 import gsap from "gsap";
@@ -13,6 +6,7 @@ import { mocData } from "@/shared/lib/mocData";
 import YearsText from "./components/YearsText";
 import SVGContent, { defaultDeg, offsetDeg } from "./components/SVGContent";
 import NavigationBtns from "./components/NavigationBtns";
+import { useIsMobile } from "@/shared/hooks/useIsMobile";
 
 const StContainer = styled.div`
   display: flex;
@@ -36,6 +30,7 @@ const MainContent = ({
   const centerY = height * 0.45;
   const elStart = useRef<HTMLSpanElement>(null);
   const elEnd = useRef<HTMLSpanElement>(null);
+  const isMobile = useIsMobile();
 
   const activeValue = useMemo(
     () => mocData.filter(({ id }) => id === activePin)[0],
@@ -70,6 +65,8 @@ const MainContent = ({
   const handleDotClick = useCallback(
     (indx: number) => {
       setActivePin(indx);
+      if (isMobile) return;
+
       const rawAngle = -indx * defaultDeg - offsetDeg;
 
       const currentRotation =
@@ -101,24 +98,30 @@ const MainContent = ({
         0
       );
     },
-    [width, height]
+    [width, height, isMobile]
   );
 
-  const handleClickBtn = (value: number) => {
-    setActivePin(value);
-    handleDotClick(value);
-  };
+  const handleClickBtn = useCallback(
+    (value: number) => {
+      setActivePin(value);
+      handleDotClick(value);
+    },
+    [width, height, isMobile]
+  );
 
   return (
     <StContainer>
       <YearsText activeValue={activeValue} elStart={elStart} elEnd={elEnd} />
-      <SVGContent
-        circleRef={circleRef}
-        centerX={centerX}
-        centerY={centerY}
-        handleDotClick={handleDotClick}
-        activePin={activePin}
-      />
+
+      {!isMobile && (
+        <SVGContent
+          circleRef={circleRef}
+          centerX={centerX}
+          centerY={centerY}
+          handleDotClick={handleDotClick}
+          activePin={activePin}
+        />
+      )}
       <NavigationBtns
         activeValue={activeValue}
         handleClickBtn={handleClickBtn}

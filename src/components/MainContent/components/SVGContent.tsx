@@ -3,6 +3,7 @@ import TimelineDot from "./TimelineDot";
 import { styled } from "styled-components";
 import { mocData } from "@/shared/lib/mocData";
 import { useFadeTransition } from "@/shared/hooks/useFadeTransition";
+import { theme } from "@/styles/theme";
 const StSVG = styled.svg`
   position: absolute;
   top: 0;
@@ -57,11 +58,29 @@ const SVGContent = ({
         >
           {mocData[displayedValue - 1].title}
         </text>
-        <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#e0e0e0" />
-        <line x1="0" y1="45%" x2="100%" y2="45%" stroke="#e0e0e0" />
+        <line
+          x1="50%"
+          y1="0"
+          x2="50%"
+          y2="100%"
+          stroke={theme.colors.primary10}
+        />
+        <line
+          x1="0"
+          y1="45%"
+          x2="100%"
+          y2="45%"
+          stroke={theme.colors.primary10}
+        />
       </StSVG>
       <StSVG style={{ zIndex: 200 }} ref={circleRef}>
-        <circle cx="50%" cy="45%" r="265" fill="none" stroke="#c0c0c0" />
+        <circle
+          cx="50%"
+          cy="45%"
+          r="265"
+          fill="none"
+          stroke={theme.colors.primary20}
+        />
 
         {dots.map((d, idx) => (
           <TimelineDot

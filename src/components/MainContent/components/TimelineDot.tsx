@@ -45,7 +45,7 @@ const TimelineDot: React.FC<TimelineDotProps> = ({
         {
           r: 26,
           fill: "#f4f5f9",
-          stroke: theme.colors.primary,
+          stroke: theme.colors.accent,
           strokeWidth: 1,
           duration: 0.7,
           ease: "power4.inOut",

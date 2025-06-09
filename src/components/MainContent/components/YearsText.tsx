@@ -13,6 +13,13 @@ const StBox = styled.div`
   left: 50%;
 
   transform: translate(-50%, -50%);
+  @media (max-width: 520px) {
+    justify-content: space-between;
+    top: 35%;
+    gap: 40px;
+    padding-bottom: 40px;
+    width: calc(100% - 40px);
+  }
 `;
 const YearsText = ({
   activeValue,
@@ -27,7 +34,7 @@ const YearsText = ({
     <StBox>
       <CustomText
         ref={elStart}
-        color={theme.colors.secondary}
+        color={theme.colors.blue}
         variant="hero200"
         as="h2"
       >
