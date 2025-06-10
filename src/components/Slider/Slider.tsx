@@ -1,4 +1,4 @@
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -55,6 +55,14 @@ const Slider = ({ activePin }: { activePin: number }) => {
   );
   const { ref: refTitle, displayedValue: textDispValue } =
     useFadeTransition(activePin);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(0, 0);
+      setIsAtStart(true);
+      setIsAtEnd(false);
+    }
+  }, [displayedValue]);
 
   return (
     <>

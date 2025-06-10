@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 
 import CustomText from "@/assets/text/Text";
 import MainContent from "@/components/MainContent/MainContent";
+import gsap from "gsap";
+
 import { theme } from "@/styles/theme";
 import Slider from "@/components/Slider/Slider";
 import { useIsMobile } from "@/shared/hooks/useIsMobile";
@@ -52,6 +54,16 @@ const Main = () => {
     }
   }, [containerRef.current]);
 
+  useLayoutEffect(() => {
+    if (ready) {
+      gsap.from(containerRef.current, {
+        opacity: 0,
+        delay: 0.5,
+        duration: 1,
+        ease: "power3.out",
+      });
+    }
+  }, [ready]);
   return (
     <StMainContainer ref={containerRef}>
       <StBox>

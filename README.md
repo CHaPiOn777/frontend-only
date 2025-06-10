@@ -36,4 +36,4 @@
 npm run start
 ```
 
-3. Откройте в браузере [ссылку](http://localhost:3000)
+3. Откройте в браузере [http://localhost:3000](http://localhost:3000)
