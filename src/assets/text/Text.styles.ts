@@ -59,8 +59,8 @@ export const variantStyles = {
     letter-spacing: -2%;
     text-align: center;
     @media (max-width: 520px) {
-      // по макету 56px но по ощущениям мало поэтому увеличил до 72px
-      font-size: 72px;
+      // по макету 56px но по ощущениям мало поэтому увеличил до 64px
+      font-size: 64px;
     }
   `,
 };
