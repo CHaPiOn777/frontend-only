@@ -77,7 +77,7 @@ const SVGContent = ({
         <circle
           cx="50%"
           cy="45%"
-          r="265"
+          r={radius}
           fill="none"
           stroke={theme.colors.primary20}
         />

@@ -1,4 +1,11 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useContainerSize } from "@/shared/hooks/useContainerSize";
 import { styled } from "styled-components";
 import gsap from "gsap";
@@ -31,7 +38,7 @@ const MainContent = ({
   const elStart = useRef<HTMLSpanElement>(null);
   const elEnd = useRef<HTMLSpanElement>(null);
   const isMobile = useIsMobile();
-
+  const rotationRef = useRef<number>(0);
   const activeValue = useMemo(
     () => mocData.filter(({ id }) => id === activePin)[0],
     [activePin]
@@ -62,6 +69,19 @@ const MainContent = ({
     animatedDates(prevEnd, activeValue.endDate, elEnd);
   }, [activeValue]);
 
+  // чтобы при resize circle не улетал
+  useLayoutEffect(() => {
+    if (isMobile) return;
+    gsap.set(circleRef.current, {
+      rotation: rotationRef.current,
+      transformOrigin: `${centerX}px ${centerY}px`,
+    });
+    gsap.set(circleRef.current!.querySelectorAll("g"), {
+      rotation: -rotationRef.current,
+      transformOrigin: `50% 50%`,
+    });
+  }, [width]);
+
   const handleDotClick = useCallback(
     (indx: number) => {
       setActivePin(indx);
@@ -86,6 +106,14 @@ const MainContent = ({
         transformOrigin: `${centerX}px ${centerY}px`,
         duration: 0.5,
         ease: "power1.inOut",
+        onComplete: () => {
+          // Получаем число текущего вращения в градусах
+          const currentRotation = gsap.getProperty(
+            circleRef.current,
+            "rotation"
+          );
+          rotationRef.current = Number(currentRotation);
+        },
       });
       tl.to(
         circleRef.current!.querySelectorAll("g"),
@@ -110,7 +138,8 @@ const MainContent = ({
   );
 
   return (
-    <StContainer>
+    // key добавил потому что при resize circle улетает в пространство)
+    <StContainer key={width}>
       <YearsText activeValue={activeValue} elStart={elStart} elEnd={elEnd} />
 
       {!isMobile && (
