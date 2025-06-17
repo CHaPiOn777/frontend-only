@@ -14,7 +14,6 @@ const StSVG = styled.svg`
 export const defaultDeg = 360 / mocData.length;
 export const offsetDeg = -defaultDeg;
 const radius = 265;
-const offsetRad = (offsetDeg * Math.PI) / 180;
 
 const SVGContent = ({
   circleRef,
@@ -33,7 +32,9 @@ const SVGContent = ({
     () =>
       mocData.map((item, i) => {
         const baseRad = (i * defaultDeg * Math.PI) / 180;
-        const angle = baseRad + offsetRad;
+        const offsetRad = (60 * Math.PI) / 180;
+
+        const angle = baseRad - offsetRad;
 
         return {
           x: centerX + radius * Math.cos(angle),
